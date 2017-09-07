@@ -4,7 +4,7 @@ import numpy as np
 
 class hankel_transform():
     def __init__(self,rmin=0.1,rmax=100,kmax=10,kmin=1.e-4,n_zeros=1000,n_zeros_step=1000,
-                 j_nu=[0,2]):
+                 j_nu=[0,2],prune_r=0,prune_log_space=True):
         self.rmin=rmin
         self.rmax=rmax
         self.kmax=kmax
@@ -19,9 +19,12 @@ class hankel_transform():
         for i in j_nu:
             self.k[i],self.r[i],self.J[i],self.J_nu1[i],self.zeros[i]=self.get_k_r_j(j_nu=i,
                                                    n_zeros=n_zeros,rmin=rmin,rmax=rmax,
-                                                   kmax=kmax,kmin=kmin,n_zeros_step=n_zeros_step)
+                                                   kmax=kmax,kmin=kmin,n_zeros_step=n_zeros_step,
+                                                   prune_r=prune_r,
+                                                   prune_log_space=prune_log_space)
 
-    def get_k_r_j(self,j_nu=0,n_zeros=1000,rmin=0.1,rmax=100,kmax=10,kmin=1.e-4,n_zeros_step=1000):
+    def get_k_r_j(self,j_nu=0,n_zeros=1000,rmin=0.1,rmax=100,kmax=10,kmin=1.e-4,
+                  n_zeros_step=1000,prune_r=0,prune_log_space=True):
         while True:
             zeros=jn_zeros(j_nu,n_zeros)
             k=zeros/zeros[-1]*kmax
@@ -39,9 +42,26 @@ class hankel_transform():
             else:
             #print n_zeros
                 break
-        x=r<rmax
-        x*=r>rmin
+        rmin2=r[r<rmin][-1]
+        rmax2=r[r>rmax][0]
+        x=r<=rmax2
+        x*=r>=rmin2
         r=r[x]
+        if prune_r!=0:
+            print 'pruning r, log_space,n_f:',prune_log_space,prune_r
+            N=len(r)
+            if prune_log_space:
+                idx=np.unique(np.int64(np.logspace(0,np.log10(N-1),N/prune_r)))#pruning can be worse than prune_r factor due to repeated numbers when logspace number are convereted to int.
+                idx=np.append([0],idx)
+            else:
+                idx=np.arange(0,N-1,step=prune_r)
+            idx=np.append(idx,[N-1])
+            r=r[idx]
+            print 'pruned r:',len(r)
+        #x=r<rmax
+        #x*=r>rmin
+        #r=r[x]
+        print 'r:',len(r)
         J=jn(j_nu,np.outer(r,k))
         J_nu1=jn(j_nu+1,zeros)
         return k,r,J,J_nu1,zeros
@@ -56,9 +76,8 @@ class hankel_transform():
             pk_int=interp1d(k_pk,pk,bounds_error=False,fill_value=0,
                             kind='linear')
             pk2=pk_int(self.k[j_nu])
-        
+
         w=np.dot(self.J[j_nu],pk2/self.J_nu1[j_nu]**2)
-        print pk2
         w*=(2.*self.kmax**2/self.zeros[j_nu][-1]**2)/(2*np.pi)
         return self.r[j_nu],w
 
@@ -105,31 +124,20 @@ class hankel_transform():
         bin_center=np.sqrt(r_bins[1:]*r_bins[:-1])
         n_bins=len(bin_center)
         cov_int=np.zeros((n_bins,n_bins),dtype='float64')
-        norm_int=np.zeros((n_bins,n_bins),dtype='float64')
-        for i in np.arange(n_bins):
-            xi=r>r_bins[i]
-            xi*=r<r_bins[i+1]
-            ri=r[xi]
-            if sum(xi)>1:
-                ri2=np.sort(np.append(ri,[r_bins[i],r_bins[i+1]]))
-                dri=np.gradient(ri2)[1:-1]
-            else:
-                dri=r_bins[i+1]-r_bins[i]
-            for j in np.arange(n_bins):
-                xj=r>r_bins[j]
-                xj*=r<r_bins[j+1]
-                rj=r[xj]
-                if sum(xj)>1:            
-                    rj2=np.sort(np.append(rj,[r_bins[j],r_bins[j+1]]))
-                    drj=np.gradient(rj2)[1:-1]
-                else:
-                    drj=r_bins[j+1]-r_bins[j]
-                #print r_bins[j],r_bins[j+1],sum(xj)
-                covij=cov[xi,:][:,xj]
-                norm_int[i][j]=np.sum(ri*dri)*np.sum(rj*drj)
-                if norm_int[i][j]==0:
+        bin_idx=np.digitize(r,r_bins)-1
+        r2=np.sort(np.append(r,r_bins)) #this takes care of problems around bin edges
+        dr=np.gradient(r2)
+        r2_idx=[i for i in np.arange(len(r2)) if r2[i] in r]
+        dr=dr[r2_idx]
+        r_dr=r*dr
+        cov_r_dr=cov*np.outer(r_dr,r_dr)
+        for i in np.arange(min(bin_idx),n_bins):
+            xi=bin_idx==i
+            for j in np.arange(min(bin_idx),n_bins):
+                xj=bin_idx==j
+                norm_ij=np.sum(r_dr[xi])*np.sum(r_dr[xj])
+                if norm_ij==0:
                     continue
-                cov_int[i][j]=np.sum((covij*np.outer(ri*dri,rj*drj)).flatten())/norm_int[i][j]
-        cov_int=np.nan_to_num(cov_int)
-        #corr=corr_matrix(cov=cov_int)
+                cov_int[i][j]=np.sum(cov_r_dr[xi,:][:,xj])/norm_ij
+        #cov_int=np.nan_to_num(cov_int)
         return bin_center,cov_int
