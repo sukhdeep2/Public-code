@@ -1,6 +1,7 @@
 from scipy.special import jn, jn_zeros
 from scipy.interpolate import interp1d
 import numpy as np
+import itertools
 
 class hankel_transform():
     def __init__(self,rmin=0.1,rmax=100,kmax=10,kmin=1.e-4,n_zeros=1000,n_zeros_step=1000,
@@ -40,10 +41,9 @@ class hankel_transform():
                 n_zeros+=n_zeros_step
                 print 'j-nu=',j_nu,' not enough zeros to cover kmin, increasing by ',n_zeros_step,' to',n_zeros
             else:
-            #print n_zeros
                 break
-        rmin2=r[r<rmin][-1]
-        rmax2=r[r>rmax][0]
+        rmin2=r[r<=rmin][-1]
+        rmax2=r[r>=rmax][0]
         x=r<=rmax2
         x*=r>=rmin2
         r=r[x]
@@ -58,16 +58,13 @@ class hankel_transform():
             idx=np.append(idx,[N-1])
             r=r[idx]
             print 'pruned r:',len(r)
-        #x=r<rmax
-        #x*=r>rmin
-        #r=r[x]
-        print 'r:',len(r)
+        r=np.unique(r)
+        print 'nr:',len(r)
         J=jn(j_nu,np.outer(r,k))
         J_nu1=jn(j_nu+1,zeros)
         return k,r,J,J_nu1,zeros
 
-    def projected_correlation(self,k_pk=[],pk=[],j_nu=[],kmax=[],rmax=[],rmin=[],
-                              n_zeros=[],taper=False,**kwargs):
+    def projected_correlation(self,k_pk=[],pk=[],j_nu=[],taper=False,**kwargs):
         if taper:
             pk=self.taper(k=k_pk,pk=pk,**kwargs)
         if k_pk==[]:#In this case pass a function that takes k with kwargs and outputs pk
@@ -81,7 +78,7 @@ class hankel_transform():
         w*=(2.*self.kmax**2/self.zeros[j_nu][-1]**2)/(2*np.pi)
         return self.r[j_nu],w
 
-    def projected_covariance(self,k_pk=[],pk1=[],pk2=[],j_nu=[],kmax=[],rmax=[],rmin=[],                n_zeros=[],taper=False,**kwargs):
+    def projected_covariance(self,k_pk=[],pk1=[],pk2=[],j_nu=[],taper=False,**kwargs):
         #print 'projected-covariance, j=',j_nu,'r-minmax',self.rmin,self.rmax,self.kmax
         if taper:
             pk1=self.taper(k=k_pk,pk=pk1,**kwargs)
@@ -125,7 +122,7 @@ class hankel_transform():
         n_bins=len(bin_center)
         cov_int=np.zeros((n_bins,n_bins),dtype='float64')
         bin_idx=np.digitize(r,r_bins)-1
-        r2=np.sort(np.append(r,r_bins)) #this takes care of problems around bin edges
+        r2=np.sort(np.unique(np.append(r,r_bins))) #this takes care of problems around bin edges
         dr=np.gradient(r2)
         r2_idx=[i for i in np.arange(len(r2)) if r2[i] in r]
         dr=dr[r2_idx]
@@ -141,3 +138,64 @@ class hankel_transform():
                 cov_int[i][j]=np.sum(cov_r_dr[xi,:][:,xj])/norm_ij
         #cov_int=np.nan_to_num(cov_int)
         return bin_center,cov_int
+
+    def skewness(self,k_pk=[],pk1=[],pk2=[],pk3=[],j_nu=[],taper=False,**kwargs):
+        if taper:
+            pk1=self.taper(k=k_pk,pk=pk1,**kwargs)
+            pk2=self.taper(k=k_pk,pk=pk2,**kwargs)
+            pk3=self.taper(k=k_pk,pk=pk3,**kwargs)
+        pk1_int=interp1d(k_pk,pk1,bounds_error=False,fill_value=0,
+                         kind='linear')
+        pk1=pk1_int(self.k[j_nu])
+        pk2_int=interp1d(k_pk,pk2,bounds_error=False,fill_value=0
+                         ,kind='linear')
+        pk2=pk2_int(self.k[j_nu])
+        pk3_int=interp1d(k_pk,pk3,bounds_error=False,fill_value=0
+                         ,kind='linear')
+        pk3=pk3_int(self.k[j_nu])
+        skew=np.einsum('ji,ki,li',self.J[j_nu],self.J[j_nu],
+                        self.J[j_nu]*pk1*pk2*pk3/self.J_nu1[j_nu]**2)
+        skew*=(2.*self.kmax**2/self.zeros[j_nu][-1]**2)/(2*np.pi)
+        return self.r[j_nu],skew
+
+    def bin_mat(self,r=[],mat=[],r_bins=[]):#works for cov and skewness
+        bin_center=np.sqrt(r_bins[1:]*r_bins[:-1])
+        n_bins=len(bin_center)
+        ndim=len(mat.shape)
+        mat_int=np.zeros([n_bins]*ndim,dtype='float64')
+        norm_int=np.zeros([n_bins]*ndim,dtype='float64')
+        bin_idx=np.digitize(r,r_bins)-1
+        r2=np.sort(np.unique(np.append(r,r_bins))) #this takes care of problems around bin edges
+        dr=np.gradient(r2)
+        r2_idx=[i for i in np.arange(len(r2)) if r2[i] in r]
+        dr=dr[r2_idx]
+        r_dr=r*dr
+
+        ls=['i','j','k','l']
+        s1=ls[0]
+        s2=ls[0]
+        r_dr_m=r_dr
+        for i in np.arange(ndim-1):
+            s1=s2+','+ls[i+1]
+            s2+=ls[i+1]
+            r_dr_m=np.einsum(s1+'->'+s2,r_dr_m,r_dr)
+
+        mat_r_dr=mat*r_dr_m
+        for indxs in itertools.product(np.arange(min(bin_idx),n_bins),repeat=ndim):
+            x={}#np.zeros_like(mat_r_dr,dtype='bool')
+            norm_ijk=1
+            mat_t=[]
+            for nd in np.arange(ndim):
+                slc = [slice(None)] * (ndim)
+                #x[nd]=bin_idx==indxs[nd]
+                slc[nd]=bin_idx==indxs[nd]
+                if nd==0:
+                    mat_t=mat_r_dr[slc]
+                else:
+                    mat_t=mat_t[slc]
+                norm_ijk*=np.sum(r_dr[slc[nd]])
+            if norm_ijk==0:
+                continue
+            mat_int[indxs]=np.sum(mat_t)/norm_ijk
+            norm_int[indxs]=norm_ijk
+        return bin_center,mat_int
