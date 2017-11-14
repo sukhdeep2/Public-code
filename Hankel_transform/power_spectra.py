@@ -96,19 +96,27 @@ class Power_Spectra():
         else:
             return pk,kh
 
-    def cl_z(self,z=[],l=np.arange(2000)+1,pk_params=None,cosmo_h=None,cosmo=None):
-        if not cosmo_h:
-            cosmo_h=self.cosmo_h
-        nz=len(z)
-        nl=len(l)
-
+    def camb_pk_too_many_z(self,z,cosmo_params=None,pk_params=None):
         i=0
         pk=np.array([])
         z_step=140 #camb cannot handle more than 150 redshifts
+        nz=len(z)
         while pk.shape[0]<nz:
-            pki,kh=self.camb_pk(z=z[i:i+z_step],pk_params=pk_params)
+            pki,kh=self.camb_pk(z=z[i:i+z_step],pk_params=pk_params,cosmo_params=cosmo_params,return_s8=False)
             pk=np.vstack((pk,pki)) if pk.size else pki
             i+=z_step
+        return pk,kh
+
+    def cl_z(self,z=[],l=np.arange(2000)+1,pk_params=None,cosmo_h=None,cosmo=None,pk_func=None):
+        if not cosmo_h:
+            cosmo_h=self.cosmo_h
+        if not pk_func:
+            pk_func=self.camb_pk_too_many_z
+
+        nz=len(z)
+        nl=len(l)
+
+        pk,kh=pk_func(z=z,pk_params=pk_params)
 
         cls=np.zeros((nz,nl),dtype='float32')*u.Mpc**2
         for i in np.arange(nz):
