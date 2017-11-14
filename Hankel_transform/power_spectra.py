@@ -129,12 +129,12 @@ class Power_Spectra():
 
     def kappa_cl(self,zl_min=0,zl_max=1100,n_zl=10,log_zl=False,
                 zs1=[1100],p_zs1=[1],zs2=[1100],p_zs2=[1],
-                pk_params=None,cosmo_h=None,l=np.arange(2001)):
+                pk_params=None,cosmo_h=None,l=np.arange(2,2001)):
         if not cosmo_h:
             cosmo_h=self.cosmo_h
 
-        if log_zl:
-            zl=np.logspace(np.log10(max(zl_min,1.e-2)),np.log10(zl_max),n_zl)
+        if log_zl:#bins for z_lens. 
+            zl=np.logspace(np.log10(max(zl_min,1.e-4)),np.log10(zl_max),n_zl)
         else:
             zl=np.linspace(zl_min,zl_max,n_zl)
 
@@ -155,3 +155,8 @@ class Power_Spectra():
         cl*=f
         #cl*=2./np.pi #comparison with CAMB requires this.
         return l,cl
+
+
+if __name__ == "__main__":
+    PS=Power_Spectra()
+    l,cl=PS.kappa_cl(n_zl=140,log_zl=True,zl_min=1.e-4,zl_max=1100)
