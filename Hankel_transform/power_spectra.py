@@ -145,5 +145,5 @@ class Power_Spectra():
         cl/=np.sum(p_zs2*dzs2)*np.sum(p_zs1*dzs1)
         f=(l+0.5)**2/(l*(l+1.)) #correction from Kilbinger+ 2017
         cl*=f
-        cl*=2./np.pi #????????
+        #cl*=2./np.pi #comparison with CAMB requires this.
         return l,cl
