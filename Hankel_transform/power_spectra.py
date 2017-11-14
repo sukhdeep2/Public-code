@@ -45,7 +45,7 @@ class Power_Spectra():
         sigma_c[x]=np.inf
         return sigma_c
 
-    def camb_pk(self,z,cosmo_params=None,pk_params=None):
+    def camb_pk(self,z,cosmo_params=None,pk_params=None,return_s8=False):
         #Set up a new set of parameters for CAMB
         if not cosmo_params:
             cosmo_params=self.cosmo_params
@@ -65,8 +65,10 @@ class Power_Spectra():
         #sys.stdout = open(os.devnull, 'w')
 
         pars.InitPower.set_params(ns=cosmo_params['ns'], r=0,As =cosmo_params['As']) #
-        z_t=np.sort(np.unique(np.append([0],z).flatten()))
-
+        if return_s8:
+            z_t=np.sort(np.unique(np.append([0],z).flatten()))
+        else:
+            z_t=np.array(z)
         pars.set_matter_power(redshifts=z_t,kmax=pk_params['kmax'])
 
         #sys.stdout = sys.__stdout__
@@ -79,19 +81,20 @@ class Power_Spectra():
 
         results = camb.get_results(pars) #This is the time consuming part.. pk add little more (~5%).. others are negligible.
 
-        kh, z2, pk =results.get_matter_power_spectrum(minkh=pk_params['kmin'], maxkh=pk_params['kmax'],
-                                                            npoints =pk_params['nk'])
+        kh, z2, pk =results.get_matter_power_spectrum(minkh=pk_params['kmin'],
+                                                        maxkh=pk_params['kmax'],
+                                                        npoints =pk_params['nk'])
+        if not np.all(z2==z_t):
+            raise Exception('CAMB changed z order',z2,z_mocks)
 
-        s8=results.get_sigma8()
-
-        if len(s8)>len(z):
-            if not np.all(z2[1:]==z):
-                raise Exception('CAMB changed z order',z2,z_mocks)
-            return pk[1:],kh,s8[-1]
+        if return_s8:
+            s8=results.get_sigma8()
+            if len(s8)>len(z):
+                return pk[1:],kh,s8[-1]
+            else:
+                return pk,kh,s8[-1]
         else:
-            if not np.all(z2==z):
-                raise Exception('CAMB changed z order',z2,z_mocks)
-            return pk,kh,s8[-1]
+            return pk,kh
 
     def cl_z(self,z=[],l=np.arange(2000)+1,pk_params=None,cosmo_h=None,cosmo=None):
         if not cosmo_h:
@@ -103,7 +106,7 @@ class Power_Spectra():
         pk=np.array([])
         z_step=140 #camb cannot handle more than 150 redshifts
         while pk.shape[0]<nz:
-            pki,kh,s8=self.camb_pk(z=z[i:i+z_step],pk_params=pk_params)
+            pki,kh=self.camb_pk(z=z[i:i+z_step],pk_params=pk_params)
             pk=np.vstack((pk,pki)) if pk.size else pki
             i+=z_step
 
@@ -140,5 +143,7 @@ class Power_Spectra():
         cl_zs_12=np.einsum('ji,ki,il',sigma_c2,sigma_c1*dzl,clz)#integrate over zl..
         cl=np.dot(p_zs2*dzs2,np.dot(p_zs1*dzs1,cl_zs_12))
         cl/=np.sum(p_zs2*dzs2)*np.sum(p_zs1*dzs1)
+        f=(l+0.5)**2/(l*(l+1.)) #correction from Kilbinger+ 2017
+        cl*=f
         cl*=2./np.pi #????????
         return l,cl

@@ -1,5 +1,6 @@
-from scipy.special import jn, jn_zeros
+from scipy.special import jn, jn_zeros,jv
 from scipy.interpolate import interp1d
+from scipy.optimize import fsolve
 import numpy as np
 import itertools
 
@@ -27,7 +28,19 @@ class hankel_transform():
     def get_k_r_j(self,j_nu=0,n_zeros=1000,rmin=0.1,rmax=100,kmax=10,kmin=1.e-4,
                   n_zeros_step=1000,prune_r=0,prune_log_space=True):
         while True:
-            zeros=jn_zeros(j_nu,n_zeros)
+            if isinstance(j_nu,int):
+                zeros=jn_zeros(j_nu,n_zeros)
+            else:
+                def jv2(x):
+                    return jv(j_nu,x)
+                zeros_t=jn_zeros(j_nu-0.5,n_zeros)+0.7852
+                zeros=np.zeros_like(zeros_t)
+                zeros[:5500]= fsolve(jv2,zeros_t[:5500])
+                zi=interp1d(zeros_t[:5500],zeros[:5500]-zeros_t[:5500],
+                                bounds_error=False,fill_value='extrapolate',kind=0)
+                zeros=zi(zeros_t)+zeros_t
+                #this is bad, but can't find zeros of spherical right now. .7852 does make it
+                #better by ensuring most values are <1.e-3
             k=zeros/zeros[-1]*kmax
             r=zeros/kmax
             if min(r)>rmin:
@@ -64,7 +77,7 @@ class hankel_transform():
         J_nu1=jn(j_nu+1,zeros)
         return k,r,J,J_nu1,zeros
 
-    def projected_correlation(self,k_pk=[],pk=[],j_nu=[],taper=False,**kwargs):
+    def pk_grid(self,k_pk=[],pk=[],j_nu=[],taper=False,**kwargs):
         if taper:
             pk=self.taper(k=k_pk,pk=pk,**kwargs)
         if k_pk==[]:#In this case pass a function that takes k with kwargs and outputs pk
@@ -73,22 +86,26 @@ class hankel_transform():
             pk_int=interp1d(k_pk,pk,bounds_error=False,fill_value=0,
                             kind='linear')
             pk2=pk_int(self.k[j_nu])
+        return pk2
 
+    def projected_correlation(self,k_pk=[],pk=[],j_nu=[],taper=False,**kwargs):
+        pk2=self.pk_grid(k_pk=k_pk,pk=pk,j_nu=j_nu,taper=taper,**kwargs)
         w=np.dot(self.J[j_nu],pk2/self.J_nu1[j_nu]**2)
         w*=(2.*self.kmax**2/self.zeros[j_nu][-1]**2)/(2*np.pi)
         return self.r[j_nu],w
 
+    def spherical_correlation(self,k_pk=[],pk=[],j_nu=[],taper=False,**kwargs):
+    #we will use relation spherical_jn(z)=j{n+0.5}(z)*sqrt(pi/2z)
+    #pk will be written as k*pk
+        pk2=self.pk_grid(k_pk=k_pk,pk=pk,j_nu=j_nu,taper=taper,**kwargs)
+        j_f=np.sqrt(np.pi/2./np.outer(self.r[j_nu],self.k[j_nu]))
+        w=np.dot(self.J[j_nu],pk2*self.k[j_nu]/self.J_nu1[j_nu]**2)
+        w*=(2.*self.kmax**2/self.zeros[j_nu][-1]**2)/(2*np.pi)
+        return self.r[j_nu],w
+
     def projected_covariance(self,k_pk=[],pk1=[],pk2=[],j_nu=[],taper=False,**kwargs):
-        #print 'projected-covariance, j=',j_nu,'r-minmax',self.rmin,self.rmax,self.kmax
-        if taper:
-            pk1=self.taper(k=k_pk,pk=pk1,**kwargs)
-            pk2=self.taper(k=k_pk,pk=pk2,**kwargs)
-        pk1_int=interp1d(k_pk,pk1,bounds_error=False,fill_value=0,
-                         kind='linear')
-        pk1=pk1_int(self.k[j_nu])
-        pk2_int=interp1d(k_pk,pk2,bounds_error=False,fill_value=0
-                         ,kind='linear')
-        pk2=pk2_int(self.k[j_nu])
+        pk1=self.pk_grid(k_pk=k_pk,pk=pk1,j_nu=j_nu,taper=taper,**kwargs)
+        pk2=self.pk_grid(k_pk=k_pk,pk=pk2,j_nu=j_nu,taper=taper,**kwargs)
         cov=np.dot(self.J[j_nu],(self.J[j_nu]*pk1*pk2/self.J_nu1[j_nu]**2).T)
         cov*=(2.*self.kmax**2/self.zeros[j_nu][-1]**2)/(2*np.pi)
         return self.r[j_nu],cov
@@ -140,19 +157,9 @@ class hankel_transform():
         return bin_center,cov_int
 
     def skewness(self,k_pk=[],pk1=[],pk2=[],pk3=[],j_nu=[],taper=False,**kwargs):
-        if taper:
-            pk1=self.taper(k=k_pk,pk=pk1,**kwargs)
-            pk2=self.taper(k=k_pk,pk=pk2,**kwargs)
-            pk3=self.taper(k=k_pk,pk=pk3,**kwargs)
-        pk1_int=interp1d(k_pk,pk1,bounds_error=False,fill_value=0,
-                         kind='linear')
-        pk1=pk1_int(self.k[j_nu])
-        pk2_int=interp1d(k_pk,pk2,bounds_error=False,fill_value=0
-                         ,kind='linear')
-        pk2=pk2_int(self.k[j_nu])
-        pk3_int=interp1d(k_pk,pk3,bounds_error=False,fill_value=0
-                         ,kind='linear')
-        pk3=pk3_int(self.k[j_nu])
+        pk1=self.pk_grid(k_pk=k_pk,pk=pk1,j_nu=j_nu,taper=taper,**kwargs)
+        pk2=self.pk_grid(k_pk=k_pk,pk=pk2,j_nu=j_nu,taper=taper,**kwargs)
+        pk3=self.pk_grid(k_pk=k_pk,pk=pk3,j_nu=j_nu,taper=taper,**kwargs)
         skew=np.einsum('ji,ki,li',self.J[j_nu],self.J[j_nu],
                         self.J[j_nu]*pk1*pk2*pk3/self.J_nu1[j_nu]**2)
         skew*=(2.*self.kmax**2/self.zeros[j_nu][-1]**2)/(2*np.pi)
@@ -178,7 +185,7 @@ class hankel_transform():
         for i in np.arange(ndim-1):
             s1=s2+','+ls[i+1]
             s2+=ls[i+1]
-            r_dr_m=np.einsum(s1+'->'+s2,r_dr_m,r_dr)
+            r_dr_m=np.einsum(s1+'->'+s2,r_dr_m,r_dr)#works ok for 2-d case
 
         mat_r_dr=mat*r_dr_m
         for indxs in itertools.product(np.arange(min(bin_idx),n_bins),repeat=ndim):
