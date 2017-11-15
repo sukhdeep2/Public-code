@@ -75,10 +75,13 @@ class Power_Spectra():
         ps=np.zeros((nz,pk_params['nk']))
         ps0=[]
         z0=9.#PS(z0) will be rescaled using growth function when CCL fails. 
-             #Using large z so that linear ps is good approx.
+
+        pyccl_pkf=pyccl.linear_matter_power
+        if pk_params['non_linear']==1:
+            pyccl_pkf=pyccl.nonlin_matter_power
         for i in np.arange(nz):
             try:
-                ps[i]= pyccl.nonlin_matter_power(cosmo_ccl,kh,1./(1+z[i]))
+                ps[i]= pyccl_pkf(cosmo_ccl,kh,1./(1+z[i]))
             except Exception as err:
                 print 'CCL err',err,z[i]
                 if not np.any(ps0):
