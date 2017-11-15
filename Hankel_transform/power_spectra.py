@@ -1,11 +1,14 @@
 import camb
-import numpy as np
 from camb import model, initialpower
-#import cosmology
+
+import pyccl
+
+import numpy as np
 from scipy.interpolate import interp1d
 from astropy.cosmology import Planck15 as cosmo
 from astropy.constants import c,G
 from astropy import units as u
+from scipy.integrate import quad as scipy_int1d
 
 cosmo_h=cosmo.clone(H0=100)
 c=c.to(u.km/u.second)
@@ -33,6 +36,20 @@ class Power_Spectra():
         rc=rc.to(u.Msun/u.pc**2/u.Mpc)# unit of Msun/pc^2/mpc
         return rc
 
+    def DZ_int(self,z=[0],cosmo=None): #linear growth factor.. full integral.. eq 63 in Lahav and suto
+        if not cosmo:
+            cosmo=self.cosmo
+        def intf(z):
+            return (1+z)/(cosmo.H(z).value)**3
+        j=0
+        Dz=np.zeros_like(z,dtype='float32')
+        
+        for i in z:
+            Dz[j]=cosmo.H(i).value*scipy_int1d(intf,i,np.inf,epsrel=1.e-6,epsabs=1.e-6)[0]
+            j=j+1
+        Dz*=(2.5*cosmo.Om0*cosmo.H0.value**2)
+        return Dz/Dz[0]
+
     def sigma_crit(self,zl=[],zs=[],cosmo_h=None):
         if not cosmo_h:
             cosmo_h=self.cosmo_h
@@ -44,6 +61,31 @@ class Power_Spectra():
         x=ddls<=0 #zs<zl
         sigma_c[x]=np.inf
         return sigma_c
+
+    def ccl_pk(self,z,cosmo_params=None,pk_params=None):
+        if not cosmo_params:
+            cosmo_params=self.cosmo_params
+        if not pk_params:
+            pk_params=self.pk_params
+
+        cosmo_ccl=pyccl.Cosmology(h=cosmo_params['h'],Omega_c=cosmo_params['Omd'],Omega_b=cosmo_params['Omb'],
+                              A_s=cosmo_params['As'],n_s=cosmo_params['ns'],m_nu=cosmo_params['mnu'])
+        kh=np.logspace(np.log10(pk_params['kmin']),np.log10(pk_params['kmax']),pk_params['nk'])
+        nz=len(z)
+        ps=np.zeros((nz,pk_params['nk']))
+        ps0=[]
+        z0=9.#PS(z0) will be rescaled using growth function when CCL fails. 
+             #Using large z so that linear ps is good approx.
+        for i in np.arange(nz):
+            try:
+                ps[i]= pyccl.nonlin_matter_power(cosmo_ccl,kh,1./(1+z[i]))
+            except Exception as err:
+                print 'CCL err',err,z[i]
+                if not np.any(ps0):
+                    ps0=pyccl.linear_matter_power(cosmo_ccl,kh,1./(1.+z0))
+                Dz=self.DZ_int(z=[z0,z[i]])
+                ps[i]=ps0*(Dz[1]/Dz[0])**2
+        return ps,kh
 
     def camb_pk(self,z,cosmo_params=None,pk_params=None,return_s8=False):
         #Set up a new set of parameters for CAMB
@@ -127,7 +169,7 @@ class Power_Spectra():
             cls[i][:]+=pk_int(l)*u.Mpc*(c/(cosmo_h.efunc(z[i])*cosmo_h.H0))
         return cls
 
-    def kappa_cl(self,zl_min=0,zl_max=1100,n_zl=10,log_zl=False,
+    def kappa_cl(self,zl_min=0,zl_max=1100,n_zl=10,log_zl=False,pk_func=None,
                 zs1=[1100],p_zs1=[1],zs2=[1100],p_zs2=[1],
                 pk_params=None,cosmo_h=None,l=np.arange(2,2001)):
         if not cosmo_h:
@@ -138,7 +180,7 @@ class Power_Spectra():
         else:
             zl=np.linspace(zl_min,zl_max,n_zl)
 
-        clz=self.cl_z(z=zl,l=l,cosmo_h=cosmo_h,pk_params=pk_params)
+        clz=self.cl_z(z=zl,l=l,cosmo_h=cosmo_h,pk_params=pk_params,pk_func=pk_func)
 
         rho=self.Rho_crit(cosmo_h=cosmo_h)*cosmo_h.Om0
         sigma_c1=rho/self.sigma_crit(zl=zl,zs=zs1,cosmo_h=cosmo_h)
@@ -160,3 +202,4 @@ class Power_Spectra():
 if __name__ == "__main__":
     PS=Power_Spectra()
     l,cl=PS.kappa_cl(n_zl=140,log_zl=True,zl_min=1.e-4,zl_max=1100)
+    l,cl2=PS.kappa_cl(n_zl=140,log_zl=True,zl_min=1.e-4,zl_max=1100,pk_func=PS.ccl_pk)
