@@ -88,7 +88,7 @@ class Power_Spectra():
                     ps0=pyccl.linear_matter_power(cosmo_ccl,kh,1./(1.+z0))
                 Dz=self.DZ_int(z=[z0,z[i]])
                 ps[i]=ps0*(Dz[1]/Dz[0])**2
-        return ps,kh
+        return ps*cosmo_params['h']**3,kh/cosmo_params['h'] #factors of h to get in same units as camb output
 
     def camb_pk(self,z,cosmo_params=None,pk_params=None,return_s8=False):
         #Set up a new set of parameters for CAMB
