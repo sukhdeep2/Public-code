@@ -1,5 +1,5 @@
-import camb
-from camb import model, initialpower
+#import camb
+#from camb import model, initialpower
 
 import pyccl
 
@@ -197,12 +197,15 @@ class Power_Spectra():
         cl=np.dot(p_zs2*dzs2,np.dot(p_zs1*dzs1,cl_zs_12))
         cl/=np.sum(p_zs2*dzs2)*np.sum(p_zs1*dzs1)
         f=(l+0.5)**2/(l*(l+1.)) #correction from Kilbinger+ 2017
-        cl*=f
+        cl/=f**2
         #cl*=2./np.pi #comparison with CAMB requires this.
         return l,cl
 
 
 if __name__ == "__main__":
     PS=Power_Spectra()
-    l,cl=PS.kappa_cl(n_zl=140,log_zl=True,zl_min=1.e-4,zl_max=1100)
+#    l,cl=PS.kappa_cl(n_zl=140,log_zl=True,zl_min=1.e-4,zl_max=1100) #camb
     l,cl2=PS.kappa_cl(n_zl=140,log_zl=True,zl_min=1.e-4,zl_max=1100,pk_func=PS.ccl_pk)
+    fname='kappa_cl_cmb'
+    #np.savetxt(fname+'_camb.dat',np.column_stack((l,cl)))
+    np.savetxt(fname+'_ccl.dat',np.column_stack((l,cl2)))
