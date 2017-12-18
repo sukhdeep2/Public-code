@@ -32,7 +32,7 @@ class Power_Spectra():
         if not cosmo_h:
             cosmo_h=self.cosmo_h
         G2=G.to(u.Mpc/u.Msun*u.km**2/u.second**2)
-        rc=3*self.cosmo_h.H0**2/(8*np.pi*G2)
+        rc=3*cosmo_h.H0**2/(8*np.pi*G2)
         rc=rc.to(u.Msun/u.pc**2/u.Mpc)# unit of Msun/pc^2/mpc
         return rc
 
