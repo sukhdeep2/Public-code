@@ -1,8 +1,8 @@
 #import camb
 #from camb import model, initialpower
 
-import pyccl
-
+#import pyccl
+from classy import Class
 import numpy as np
 from scipy.interpolate import interp1d
 from astropy.cosmology import Planck15 as cosmo
@@ -14,9 +14,21 @@ cosmo_h=cosmo.clone(H0=100)
 c=c.to(u.km/u.second)
 
 cosmo_fid=dict({'h':cosmo.h,'Omb':cosmo.Ob0,'Omd':cosmo.Om0-cosmo.Ob0,'s8':0.817,'Om':cosmo.Om0,
-                'As':2.12e-09,'mnu':cosmo.m_nu[-1].value,'Omk':cosmo.Ok0,'tau':0.06,'ns':0.965})
+                'As':2.12e-09,'mnu':cosmo.m_nu[-1].value,'Omk':cosmo.Ok0,'tau':0.06,'ns':0.965,'w':-1,'wa':0})
 pk_params={'non_linear':1,'kmax':30,'kmin':3.e-4,'nk':5000}
-
+class_accuracy_settings={ #from Vanessa. To avoid class errors due to compiler issues.
+                          #https://github.com/lesgourg/class_public/issues/193
+            "k_min_tau0":0.002, #you could try change this
+            "k_max_tau0_over_l_max":3., #you can also try 5 here
+            "k_step_sub":0.015,
+            "k_step_super":0.0001,
+            "k_step_super_reduction":0.1,
+            'k_per_decade_for_pk': 20,
+#             'k_output_values': 2.0,
+            'perturb_sampling_stepsize':0.01,
+            'tol_perturb_integration':1.e-4,
+            'halofit_k_per_decade': 3000. #you could try change this
+            }
 class Power_Spectra():
     def __init__(self,cosmo_params=cosmo_fid,pk_params=pk_params,cosmo=cosmo,cosmo_h=None):
         self.cosmo_params=cosmo_params
@@ -27,6 +39,10 @@ class Power_Spectra():
             self.cosmo_h=cosmo.clone(H0=100)
         else:
             self.cosmo_h=cosmo_h
+            
+        if not pk_params is None:
+            self.kh=np.logspace(np.log10(pk_params['kmin']),np.log10(pk_params['kmax']),
+            pk_params['nk'])
 
     def Rho_crit(self,cosmo_h=None):
         if not cosmo_h:
@@ -83,7 +99,7 @@ class Power_Spectra():
             try:
                 ps[i]= pyccl_pkf(cosmo_ccl,kh,1./(1+z[i]))
             except Exception as err:
-                print 'CCL err',err,z[i]
+                print ('CCL err',err,z[i])
                 if not np.any(ps0):
                     ps0=pyccl.linear_matter_power(cosmo_ccl,kh,1./(1.+z0))
                 Dz=self.DZ_int(z=[z0,z[i]])
@@ -151,7 +167,56 @@ class Power_Spectra():
             pk=np.vstack((pk,pki)) if pk.size else pki
             i+=z_step
         return pk,kh
+    
+    def class_pk(self,z,cosmo_params=None,pk_params=None,return_s8=False):
+        if  cosmo_params is None:
+            cosmo_params=self.cosmo_params
+        if pk_params is None:
+            pk_params=self.pk_params
+            
+        cosmoC=Class()
+        h=cosmo_params['h']
+        class_params={'h':h,'omega_b':cosmo_params['Omb']*h**2,
+                            'omega_cdm':(cosmo_params['Om']-cosmo_params['Omb'])*h**2,
+                            'A_s':cosmo_params['As'],'n_s':cosmo_params['ns'],
+                            'output': 'mPk','z_max_pk':100, #max(z)*2, #to avoid class error.
+                                      #Allegedly a compiler error, whatever that means
+                            'P_k_max_1/Mpc':pk_params['kmax']*h*1.1,
+                    }
+        if pk_params['non_linear']==1:
+            class_params['non linear']='halofit'
 
+        class_params['N_ur']=3.04 #ultra relativistic species... neutrinos
+        if cosmo_params['mnu']!=0:
+            class_params['N_ur']-=1 #one massive neutrino
+            class_params['m_ncdm']=cosmo_params['mnu']
+        class_params['N_ncdm']=3.04-class_params['N_ur']
+        if cosmo_params['w']!=-1 or cosmo_params['wa']!=0:
+            class_params['Omega_fld']=cosmo_params['Oml']
+            class_params['w0_fld']=cosmo_params['w']
+            class_params['wa_fld']=cosmo_params['wa']
+
+        for ke in class_accuracy_settings.keys():
+            class_params[ke]=class_accuracy_settings[ke]
+
+        cosmoC=Class()
+        cosmoC.set(class_params)
+        try:
+            cosmoC.compute()
+        except Exception as err:
+            print(class_params, err)
+            raise Exception('Class crashed')
+
+        k=self.kh*h
+        pkC=np.array([[cosmoC.pk(ki,zj) for ki in k ]for zj in z])
+        pkC*=h**3
+        s8=cosmoC.sigma8()
+        cosmoC.struct_cleanup()
+        if return_s8:
+            return pkC,self.kh,s8
+        else:
+            return pkC,self.kh
+    
     def cl_z(self,z=[],l=np.arange(2000)+1,pk_params=None,cosmo_h=None,cosmo=None,pk_func=None):
         if not cosmo_h:
             cosmo_h=self.cosmo_h
