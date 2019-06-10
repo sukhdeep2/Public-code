@@ -1,5 +1,6 @@
 #requires mcfit, pip install mcfit
-# see https://arxiv.org/pdf/0911.4973.pdf
+# see https://arxiv.org/pdf/0911.4973.pdf... eq. 47-50
+# for IA beta, see https://arxiv.org/pdf/1510.06752.pdf
 import mcfit
 from mcfit import P2xi
 from scipy.interpolate import interp1d
