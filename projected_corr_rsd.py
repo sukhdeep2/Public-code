@@ -1,4 +1,5 @@
 #requires mcfit, pip install mcfit
+# see https://arxiv.org/pdf/0911.4973.pdf
 import mcfit
 from mcfit import P2xi
 from scipy.interpolate import interp1d
