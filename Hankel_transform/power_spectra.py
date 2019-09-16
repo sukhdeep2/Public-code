@@ -80,7 +80,7 @@ class Power_Spectra():
 
     def sigma_crit_inv(self,zl=[],zs=[],cosmo_h=None):
         rho=self.Rho_crit(cosmo_h=cosmo_h)*cosmo_h.Om0
-        return rho/self.sigma_crit(zl=zl,zs=zs1,cosmo_h=cosmo_h)
+        return rho/self.sigma_crit(zl=zl,zs=zs,cosmo_h=cosmo_h)
 
     def ccl_pk(self,z,cosmo_params=None,pk_params=None):
         if not cosmo_params:
@@ -278,7 +278,7 @@ class Power_Spectra():
 
 if __name__ == "__main__":
     PS=Power_Spectra()
-    l,cl=PS.kappa_cl(n_zl=140,log_zl=True,zl_min=1.e-4,zl_max=1100) #camb
+    l,cl=PS.kappa_cl(n_zl=140,log_zl=True,zl_min=1.e-4,zl_max=5) #camb
 #    l,cl2=PS.kappa_cl(n_zl=140,log_zl=True,zl_min=1.e-4,zl_max=1100,pk_func=PS.ccl_pk)
     fname='kappa_cl_cmb'
     np.savetxt(fname+'_camb.dat',np.column_stack((l,cl)))
