@@ -173,6 +173,7 @@ class Power_Spectra():
         return pk,kh
     
     def class_pk(self,z,cosmo_params=None,pk_params=None,return_s8=False):
+       #Class may crash for z>9
         if  cosmo_params is None:
             cosmo_params=self.cosmo_params
         if pk_params is None:
