@@ -78,6 +78,10 @@ class Power_Spectra():
         sigma_c[x]=np.inf
         return sigma_c
 
+    def sigma_crit_inv(self,zl=[],zs=[],cosmo_h=None):
+        rho=self.Rho_crit(cosmo_h=cosmo_h)*cosmo_h.Om0
+        return rho/self.sigma_crit(zl=zl,zs=zs1,cosmo_h=cosmo_h)
+
     def ccl_pk(self,z,cosmo_params=None,pk_params=None):
         if not cosmo_params:
             cosmo_params=self.cosmo_params
@@ -221,7 +225,8 @@ class Power_Spectra():
         if not cosmo_h:
             cosmo_h=self.cosmo_h
         if not pk_func:
-            pk_func=self.camb_pk_too_many_z
+            #pk_func=self.camb_pk_too_many_z
+            pk_func=self.class_pk
 
         nz=len(z)
         nl=len(l)
@@ -251,8 +256,12 @@ class Power_Spectra():
         clz=self.cl_z(z=zl,l=l,cosmo_h=cosmo_h,pk_params=pk_params,pk_func=pk_func)
 
         rho=self.Rho_crit(cosmo_h=cosmo_h)*cosmo_h.Om0
-        sigma_c1=rho/self.sigma_crit(zl=zl,zs=zs1,cosmo_h=cosmo_h)
-        sigma_c2=rho/self.sigma_crit(zl=zl,zs=zs2,cosmo_h=cosmo_h)
+        kernel1=self.sigma_crit_inv
+        kernel2=self.sigma_crit_inv
+        sigma_c1=kernel1(zl=zl,zs=zs1,cosmo_h=cosmo_h)
+        sigma_c2=kernel2(zl=zl,zs=zs2,cosmo_h=cosmo_h)
+        #sigma_c1=rho/self.sigma_crit(zl=zl,zs=zs1,cosmo_h=cosmo_h)
+        #sigma_c2=rho/self.sigma_crit(zl=zl,zs=zs2,cosmo_h=cosmo_h)
 
         dzl=np.gradient(zl)
         dzs1=np.gradient(zs1) if len(zs1)>1 else 1
@@ -269,8 +278,8 @@ class Power_Spectra():
 
 if __name__ == "__main__":
     PS=Power_Spectra()
-#    l,cl=PS.kappa_cl(n_zl=140,log_zl=True,zl_min=1.e-4,zl_max=1100) #camb
-    l,cl2=PS.kappa_cl(n_zl=140,log_zl=True,zl_min=1.e-4,zl_max=1100,pk_func=PS.ccl_pk)
+    l,cl=PS.kappa_cl(n_zl=140,log_zl=True,zl_min=1.e-4,zl_max=1100) #camb
+#    l,cl2=PS.kappa_cl(n_zl=140,log_zl=True,zl_min=1.e-4,zl_max=1100,pk_func=PS.ccl_pk)
     fname='kappa_cl_cmb'
-    #np.savetxt(fname+'_camb.dat',np.column_stack((l,cl)))
-    np.savetxt(fname+'_ccl.dat',np.column_stack((l,cl2)))
+    np.savetxt(fname+'_camb.dat',np.column_stack((l,cl)))
+    #np.savetxt(fname+'_ccl.dat',np.column_stack((l,cl2)))
