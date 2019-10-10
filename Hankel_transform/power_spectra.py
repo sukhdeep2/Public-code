@@ -1,5 +1,5 @@
-#import camb
-#from camb import model, initialpower
+import camb
+from camb import model, initialpower
 
 #import pyccl
 from classy import Class
