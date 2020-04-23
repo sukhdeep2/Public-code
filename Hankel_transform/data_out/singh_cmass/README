@@ -1,0 +1,24 @@
+- File naming convention: "shape_density.dat"
+
+- 'cmass.dat' file has basic information for lowz galaxies. The missing
+  entries in this file use fill value of -999.
+
+- Column names are given in file header.
+
+- For details of estimators, sample definitions see
+  http://arxiv.org/abs/1411.1755
+
+  cross: (SD-SRd-DRs+RsRd)/RsRd
+  auto: S=D in cross eq. above
+  
+  S stands for shape sample and D for density tracer.
+  The rationale for doing this is that we don't have shapes for all
+  galaxies but we can still use them as density tracers to improve S/N.
+
+- Almost all results are cross-correlations, where density sample
+  doesnot have shapes. Hence 'w++' will be zero.
+
+- The shape and density sample will always have the same 'z' cuts.
+  CMASS cut: 0.45<z<0.70
+
+- Luminosity samples are defined in z-bins as explained in Singh+ 2015.

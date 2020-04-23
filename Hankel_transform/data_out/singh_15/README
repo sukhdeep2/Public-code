@@ -1,0 +1,17 @@
+- File naming convention: "shape_density.dat"
+
+- 'lowz.dat' file has basic information for lowz galaxies. The missing
+  entries in this file use fill value of -999.
+
+- Column names are given in file header.
+
+- For details of estimators, sample definitions see http://arxiv.org/abs/1411.1755
+
+- Almost all results are cross-correlations, where density sample
+  doesnot have shapes. Hence 'w++' will be zero.
+
+- The shape and density sample will always have the same 'z' cuts.
+  z1: 0.16<z<0.26
+  z2: 0.26<z<0.36
+
+- Luminosity samples are defined in z-bins as explained in Singh+ 2015.
