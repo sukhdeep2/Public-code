@@ -1,0 +1,78 @@
+==============================================================
+begining:: Sun Jun 16 15:33:58 PDT 2019
+doing coors /home/deep/repos/FP_project/cmass12_fp//data_out/lum_ia/lum2full_wt02_Rwt0.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+data_ini:: initialisation File not open/home/deep/repos/FP_project/cmass12_fp//data_out/lum_ia/lum2full_wt02_Rwt0.inp
+initialisation file not read!! Bye
+Finished:: Sun Jun 16 15:33:58 PDT 2019
+================================================
+==============================================================
+begining:: Sun Jun 16 15:33:58 PDT 2019
+doing coors /home/deep/repos/FP_project/cmass12_fp//data_out/lum_ia/lum2full_wt02_Rwt0_ia.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+RsRd same  0  RR-prob:1
+doing jk1
+data_inf.coordinates:0
+done initialization
+doing weighted calcs
+111
+do_corr: here
+Doing cross SRd
+corels2, n1, n2: 1539092 107895
+OMP procs: 16
+corel2 ends::time: 315.281  total pair= 975545592	pairs out= 600511660   pairs in=375033932    PB=0
+Doing cross RsRd
+corels2, n1, n2: 1539092 215790
+OMP procs: 16
+corel2 ends::time: 1131.31  total pair= 1947641724	pairs out= 1212769694   pairs in=734872030    PB=0
+Doing cross SD
+corels2, n1, n2: 769546 107895
+OMP procs: 16
+corel2 ends::time: 251.365  total pair= 500770454	pairs out= 310588915   pairs in=190181539    PB=0
+Doing cross DRs
+corels2, n1, n2: 769546 215790
+OMP procs: 16
+corel2 ends::time: 586.843  total pair= 994462971	pairs out= 626481577   pairs in=367981394    PB=0
+Bin calculations
+Binning done
+Finished:: Sun Jun 16 16:12:24 PDT 2019
+================================================
+==============================================================
+begining:: Mon Jun 17 05:29:29 PDT 2019
+doing coors /home/deep/repos/FP_project/cmass12_fp//data_out/lum_ia/lum2full_wt02_Rwt0.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+data_ini:: initialisation File not open/home/deep/repos/FP_project/cmass12_fp//data_out/lum_ia/lum2full_wt02_Rwt0.inp
+initialisation file not read!! Bye
+Finished:: Mon Jun 17 05:29:29 PDT 2019
+================================================
+==============================================================
+begining:: Mon Jun 17 05:29:30 PDT 2019
+doing coors /home/deep/repos/FP_project/cmass12_fp//data_out/lum_ia/lum2full_wt02_Rwt0_ia.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+RsRd same  0  RR-prob:1
+doing jk1
+data_inf.coordinates:0
+done initialization
+doing weighted calcs
+111
+do_corr: here
+Doing cross SRd
+corels2, n1, n2: 7695460 107895
+OMP procs: 16
+corel2 ends::time: 1721.85  total pair= 4890712590	pairs out= 3016360332   pairs in=1874352258    PB=0
+Doing cross RsRd
+corels2, n1, n2: 7695460 1078950
+OMP procs: 16
+corel2 ends::time: 15997.2  total pair= 48763530448	pairs out= 30429700979   pairs in=18333829469    PB=0
+Doing cross SD
+corels2, n1, n2: 769546 107895
+OMP procs: 16
+corel2 ends::time: 101.553  total pair= 500770454	pairs out= 310588915   pairs in=190181539    PB=0
+Doing cross DRs
+corels2, n1, n2: 769546 1078950
+OMP procs: 16
+corel2 ends::time: 1757.44  total pair= 4966597289	pairs out= 3129876282   pairs in=1836721007    PB=0
+Bin calculations
+Binning done
+Finished:: Mon Jun 17 10:56:44 PDT 2019
+================================================

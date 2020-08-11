@@ -1,0 +1,117 @@
+==============================================================
+begining:: Thu Jun 13 10:07:50 PDT 2019
+doing coors /home/deep/repos/FP_project/lowz12_fp//data_out/color_ia/color5full_wt02_Rwt0.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+data_ini:: initialisation File not open/home/deep/repos/FP_project/lowz12_fp//data_out/color_ia/color5full_wt02_Rwt0.inp
+initialisation file not read!! Bye
+Finished:: Thu Jun 13 10:07:50 PDT 2019
+================================================
+==============================================================
+begining:: Thu Jun 13 10:07:50 PDT 2019
+doing coors /home/deep/repos/FP_project/lowz12_fp//data_out/color_ia/color5full_wt02_Rwt0_ia.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+RsRd same  0  RR-prob:1
+doing jk1
+data_inf.coordinates:0
+done initialization
+doing weighted calcs
+111
+do_corr: here
+Doing cross SRd
+corels2, n1, n2: 3579830 54838
+OMP procs: 16
+corel2 ends::time: 94.9224  total pair= 2972269892	pairs out= 2004376473   pairs in=967893419    PB=0
+Doing cross RsRd
+corels2, n1, n2: 3579830 548380
+OMP procs: 16
+corel2 ends::time: 966.617  total pair= 29316101284	pairs out= 19781680827   pairs in=9534420457    PB=0
+Doing cross SD
+corels2, n1, n2: 357983 54838
+OMP procs: 16
+corel2 ends::time: 9.78113  total pair= 301996463	pairs out= 204206671   pairs in=97789792    PB=0
+Doing cross DRs
+corels2, n1, n2: 357983 548380
+OMP procs: 16
+corel2 ends::time: 103.749  total pair= 2971128742	pairs out= 2016658977   pairs in=954469765    PB=0
+Bin calculations
+Binning done
+Finished:: Thu Jun 13 10:27:30 PDT 2019
+================================================
+==============================================================
+begining:: Sun Jun 16 16:07:10 PDT 2019
+doing coors /home/deep/repos/FP_project/lowz12_fp//data_out/color_ia/color5full_wt02_Rwt0.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+data_ini:: initialisation File not open/home/deep/repos/FP_project/lowz12_fp//data_out/color_ia/color5full_wt02_Rwt0.inp
+initialisation file not read!! Bye
+Finished:: Sun Jun 16 16:07:10 PDT 2019
+================================================
+==============================================================
+begining:: Sun Jun 16 16:07:10 PDT 2019
+doing coors /home/deep/repos/FP_project/lowz12_fp//data_out/color_ia/color5full_wt02_Rwt0_ia.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+RsRd same  0  RR-prob:1
+doing jk1
+data_inf.coordinates:0
+done initialization
+doing weighted calcs
+111
+do_corr: here
+Doing cross SRd
+corels2, n1, n2: 715966 54838
+OMP procs: 16
+corel2 ends::time: 114.404  total pair= 594391267	pairs out= 400907734   pairs in=193483533    PB=0
+Doing cross RsRd
+corels2, n1, n2: 715966 109676
+OMP procs: 16
+corel2 ends::time: 175.823  total pair= 1172419610	pairs out= 791301385   pairs in=381118225    PB=0
+Doing cross SD
+corels2, n1, n2: 357983 54838
+OMP procs: 16
+corel2 ends::time: 43.6561  total pair= 301996463	pairs out= 204206671   pairs in=97789792    PB=0
+Doing cross DRs
+corels2, n1, n2: 357983 109676
+OMP procs: 16
+corel2 ends::time: 85.0332  total pair= 594271707	pairs out= 403259386   pairs in=191012321    PB=0
+Bin calculations
+Binning done
+Finished:: Sun Jun 16 16:14:22 PDT 2019
+================================================
+==============================================================
+begining:: Mon Jun 17 04:18:26 PDT 2019
+doing coors /home/deep/repos/FP_project/lowz12_fp//data_out/color_ia/color5full_wt02_Rwt0.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+data_ini:: initialisation File not open/home/deep/repos/FP_project/lowz12_fp//data_out/color_ia/color5full_wt02_Rwt0.inp
+initialisation file not read!! Bye
+Finished:: Mon Jun 17 04:18:26 PDT 2019
+================================================
+==============================================================
+begining:: Mon Jun 17 04:18:26 PDT 2019
+doing coors /home/deep/repos/FP_project/lowz12_fp//data_out/color_ia/color5full_wt02_Rwt0_ia.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+RsRd same  0  RR-prob:1
+doing jk1
+data_inf.coordinates:0
+done initialization
+doing weighted calcs
+111
+do_corr: here
+Doing cross SRd
+corels2, n1, n2: 3579830 54838
+OMP procs: 16
+corel2 ends::time: 473.395  total pair= 2974504367	pairs out= 2007162011   pairs in=967342356    PB=0
+Doing cross RsRd
+corels2, n1, n2: 3579830 548380
+OMP procs: 16
+corel2 ends::time: 5463.34  total pair= 29355199709	pairs out= 19825274322   pairs in=9529925387    PB=0
+Doing cross SD
+corels2, n1, n2: 357983 54838
+OMP procs: 16
+corel2 ends::time: 39.3165  total pair= 301996463	pairs out= 204206671   pairs in=97789792    PB=0
+Doing cross DRs
+corels2, n1, n2: 357983 548380
+OMP procs: 16
+corel2 ends::time: 485.803  total pair= 2973114037	pairs out= 2018679922   pairs in=954434115    PB=0
+Bin calculations
+Binning done
+Finished:: Mon Jun 17 06:06:40 PDT 2019
+================================================

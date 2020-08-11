@@ -1,0 +1,79 @@
+==============================================================
+begining:: Sun Jun 16 13:21:22 PDT 2019
+doing coors /home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/fullfull_wt22_Rwt3.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+data_ini:: initialisation File not open/home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/fullfull_wt22_Rwt3.inp
+initialisation file not read!! Bye
+Finished:: Sun Jun 16 13:21:22 PDT 2019
+================================================
+==============================================================
+begining:: Sun Jun 16 13:21:22 PDT 2019
+doing coors /home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/fullfull_wt22_Rwt3_ia.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+data_ini:: initialisation File not open/home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/fullfull_wt22_Rwt3_ia.inp
+initialisation file not read!! Bye
+Finished:: Sun Jun 16 13:21:22 PDT 2019
+================================================
+==============================================================
+begining:: Sun Jun 16 13:23:50 PDT 2019
+doing coors /home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/fullfull_wt22_Rwt3.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+data_ini:: initialisation File not open/home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/fullfull_wt22_Rwt3.inp
+initialisation file not read!! Bye
+Finished:: Sun Jun 16 13:23:50 PDT 2019
+================================================
+==============================================================
+begining:: Sun Jun 16 13:23:50 PDT 2019
+doing coors /home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/fullfull_wt22_Rwt3_ia.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+data_ini:: initialisation File not open/home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/fullfull_wt22_Rwt3_ia.inp
+initialisation file not read!! Bye
+Finished:: Sun Jun 16 13:23:50 PDT 2019
+================================================
+==============================================================
+begining:: Sun Jun 16 13:24:37 PDT 2019
+doing coors /home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/fullfull_wt22_Rwt3.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+data_ini:: initialisation File not open/home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/fullfull_wt22_Rwt3.inp
+initialisation file not read!! Bye
+Finished:: Sun Jun 16 13:24:37 PDT 2019
+================================================
+==============================================================
+begining:: Sun Jun 16 13:24:37 PDT 2019
+doing coors /home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/fullfull_wt22_Rwt3_ia.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+data_ini:: initialisation File not open/home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/fullfull_wt22_Rwt3_ia.inp
+initialisation file not read!! Bye
+Finished:: Sun Jun 16 13:24:37 PDT 2019
+================================================
+==============================================================
+begining:: Sun Jun 16 13:29:02 PDT 2019
+doing coors /home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/fullfull_wt22_Rwt3.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+data_ini:: initialisation File not open/home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/fullfull_wt22_Rwt3.inp
+initialisation file not read!! Bye
+Finished:: Sun Jun 16 13:29:02 PDT 2019
+================================================
+==============================================================
+begining:: Sun Jun 16 13:29:02 PDT 2019
+doing coors /home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/fullfull_wt22_Rwt3_ia.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+RsRd same  0  RR-prob:1
+doing jk1
+data_inf.coordinates:0
+done initialization
+doing weighted calcs
+doing weighted calcs
+doing weighted calcs
+111
+doing weighted calcs
+do_corr: here
+Doing cross SRd
+corels2, n1, n2: 7695460 525696
+OMP procs: 16
+corel2 ends::time: 2164.59  total pair= 23791171336	pairs out= 14762213703   pairs in=9028957633    PB=0
+Doing cross RsRd
+corels2, n1, n2: 7695460 5256960
+OMP procs: 16
+Finished:: Sun Jun 16 15:07:17 PDT 2019
+================================================

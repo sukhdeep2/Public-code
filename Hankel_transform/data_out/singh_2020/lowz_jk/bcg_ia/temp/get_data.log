@@ -1,0 +1,63 @@
+
+
+===============================================
+begining Fri Jun 14 11:48:47 PDT 2019
+==============off to python==============
+shape_cuts [('Group_count', '>', '1') ('bcg', '==', '1')]
+shape_cuts [('z', '>', '0.15') ('z', '<', '0.43') ('e1', '>', '-10.0')
+ ('jk', '>', '-1') ('Group_count', '>', '1') ('bcg', '==', '1')]
+density_cuts [('z', '>', '0.15') ('z', '<', '0.43') ('jk', '>', '-1')
+ ('z', '>', '0.15') ('z', '<', '0.43') ('jk', '>', '-1')]
+0.9979763031005859
+flag_data_rand err 'e1'
+flag_data_rand err 'Group_count'
+flag_data_rand err 'bcg'
+0.9979763031005859
+rand RA-DEC wt col jk_lowz12 3
+2:  [0.01064358 0.01057774 0.01038761 0.01009272] [23. 24. 25. 26.]
+density:  [0.01071168 0.01052787 0.01040413 0.01012031] [23. 24. 25. 26.] 37245
+e_rms:  0.13
+writing to: /home/deep/repos/FP_project/lowz12_fp//data_out/bcg_ia/bcgfull_wt02_Rwt3
+==============python done==============
+
+
+===============================================
+begining Sun Jun 16 15:14:05 PDT 2019
+==============off to python==============
+shape_cuts [('Group_count', '>', '1') ('bcg', '==', '1')]
+shape_cuts [('z', '>', '0.15') ('z', '<', '0.43') ('e1', '>', '-10.0')
+ ('jk', '>', '-1') ('Group_count', '>', '1') ('bcg', '==', '1')]
+density_cuts [('z', '>', '0.15') ('z', '<', '0.43') ('jk', '>', '-1')
+ ('z', '>', '0.15') ('z', '<', '0.43') ('jk', '>', '-1')]
+0.9979763031005859
+flag_data_rand err 'e1'
+flag_data_rand err 'Group_count'
+flag_data_rand err 'bcg'
+0.9979763031005859
+rand RA-DEC wt col jk_lowz12 3
+2:  [0.01066984 0.01056961 0.01035474 0.01004049] [23. 24. 25. 26.]
+density:  [0.01065693 0.01046977 0.01032032 0.01001584] [23. 24. 25. 26.] 7389
+e_rms:  0.13
+writing to: /home/deep/repos/FP_project/lowz12_fp//data_out/bcg_ia/bcgfull_wt02_Rwt3
+==============python done==============
+
+
+===============================================
+begining Sun Jun 16 20:43:29 PDT 2019
+==============off to python==============
+shape_cuts [('Group_count', '>', '1') ('bcg', '==', '1')]
+shape_cuts [('z', '>', '0.15') ('z', '<', '0.43') ('e1', '>', '-10.0')
+ ('jk', '>', '-1') ('Group_count', '>', '1') ('bcg', '==', '1')]
+density_cuts [('z', '>', '0.15') ('z', '<', '0.43') ('jk', '>', '-1')
+ ('z', '>', '0.15') ('z', '<', '0.43') ('jk', '>', '-1')]
+0.9979763031005859
+flag_data_rand err 'e1'
+flag_data_rand err 'Group_count'
+flag_data_rand err 'bcg'
+0.9979763031005859
+rand RA-DEC wt col jk_lowz12 3
+2:  [0.01067793 0.01057696 0.0103949  0.01008291] [23. 24. 25. 26.]
+density:  [0.01058374 0.01050553 0.01031948 0.01005886] [23. 24. 25. 26.] 36942
+e_rms:  0.13
+writing to: /home/deep/repos/FP_project/lowz12_fp//data_out/bcg_ia/bcgfull_wt02_Rwt3
+==============python done==============

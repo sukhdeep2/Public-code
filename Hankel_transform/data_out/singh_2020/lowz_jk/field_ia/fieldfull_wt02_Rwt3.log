@@ -1,0 +1,139 @@
+==============================================================
+begining:: Fri Jun 14 11:50:01 PDT 2019
+doing coors /home/deep/repos/FP_project/lowz12_fp//data_out/field_ia/fieldfull_wt02_Rwt3.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+data_ini:: initialisation File not open/home/deep/repos/FP_project/lowz12_fp//data_out/field_ia/fieldfull_wt02_Rwt3.inp
+initialisation file not read!! Bye
+Finished:: Fri Jun 14 11:50:01 PDT 2019
+================================================
+==============================================================
+begining:: Fri Jun 14 11:50:01 PDT 2019
+doing coors /home/deep/repos/FP_project/lowz12_fp//data_out/field_ia/fieldfull_wt02_Rwt3_ia.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+data_ini:: initialisation File not open/home/deep/repos/FP_project/lowz12_fp//data_out/field_ia/fieldfull_wt02_Rwt3_ia.inp
+initialisation file not read!! Bye
+Finished:: Fri Jun 14 11:50:01 PDT 2019
+================================================
+==============================================================
+begining:: Fri Jun 14 12:02:47 PDT 2019
+doing coors /home/deep/repos/FP_project/lowz12_fp//data_out/field_ia/fieldfull_wt02_Rwt3.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+data_ini:: initialisation File not open/home/deep/repos/FP_project/lowz12_fp//data_out/field_ia/fieldfull_wt02_Rwt3.inp
+initialisation file not read!! Bye
+Finished:: Fri Jun 14 12:02:47 PDT 2019
+================================================
+==============================================================
+begining:: Fri Jun 14 12:02:47 PDT 2019
+doing coors /home/deep/repos/FP_project/lowz12_fp//data_out/field_ia/fieldfull_wt02_Rwt3_ia.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+RsRd same  0  RR-prob:1
+doing jk1
+data_inf.coordinates:0
+done initialization
+doing weighted calcs
+doing weighted calcs
+111
+doing weighted calcs
+do_corr: here
+Doing cross SRd
+corels2, n1, n2: 3579830 214618
+OMP procs: 16
+corel2 ends::time: 2589.69  total pair= 11474339816	pairs out= 7737326857   pairs in=3737012959    PB=0
+Doing cross RsRd
+corels2, n1, n2: 3579830 2146180
+OMP procs: 16
+corel2 ends::time: 10498.3  total pair= 114415467492	pairs out= 77196959679   pairs in=37218507813    PB=0
+Doing cross SD
+corels2, n1, n2: 357983 214618
+OMP procs: 16
+corel2 ends::time: 96.3525  total pair= 1168193186	pairs out= 790015395   pairs in=378177791    PB=0
+Doing cross DRs
+corels2, n1, n2: 357983 2146180
+OMP procs: 16
+corel2 ends::time: 1145.19  total pair= 11617299891	pairs out= 7886723891   pairs in=3730576000    PB=0
+Bin calculations
+Binning done
+Finished:: Fri Jun 14 16:02:25 PDT 2019
+================================================
+==============================================================
+begining:: Sun Jun 16 15:16:12 PDT 2019
+doing coors /home/deep/repos/FP_project/lowz12_fp//data_out/field_ia/fieldfull_wt02_Rwt3.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+data_ini:: initialisation File not open/home/deep/repos/FP_project/lowz12_fp//data_out/field_ia/fieldfull_wt02_Rwt3.inp
+initialisation file not read!! Bye
+Finished:: Sun Jun 16 15:16:12 PDT 2019
+================================================
+==============================================================
+begining:: Sun Jun 16 15:16:12 PDT 2019
+doing coors /home/deep/repos/FP_project/lowz12_fp//data_out/field_ia/fieldfull_wt02_Rwt3_ia.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+RsRd same  0  RR-prob:1
+doing jk1
+data_inf.coordinates:0
+done initialization
+doing weighted calcs
+doing weighted calcs
+111
+doing weighted calcs
+do_corr: here
+Doing cross SRd
+corels2, n1, n2: 715966 214618
+OMP procs: 16
+corel2 ends::time: 401.426  total pair= 2288843405	pairs out= 1541440168   pairs in=747403237    PB=0
+Doing cross RsRd
+corels2, n1, n2: 715966 429236
+OMP procs: 16
+corel2 ends::time: 851.426  total pair= 4567089902	pairs out= 3078671152   pairs in=1488418750    PB=0
+Doing cross SD
+corels2, n1, n2: 357983 214618
+OMP procs: 16
+corel2 ends::time: 319.232  total pair= 1168193186	pairs out= 790015395   pairs in=378177791    PB=0
+Doing cross DRs
+corels2, n1, n2: 357983 429236
+OMP procs: 16
+corel2 ends::time: 647.353  total pair= 2324593004	pairs out= 1578730431   pairs in=745862573    PB=0
+Bin calculations
+Binning done
+Finished:: Sun Jun 16 15:53:22 PDT 2019
+================================================
+==============================================================
+begining:: Mon Jun 17 07:12:39 PDT 2019
+doing coors /home/deep/repos/FP_project/lowz12_fp//data_out/field_ia/fieldfull_wt02_Rwt3.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+data_ini:: initialisation File not open/home/deep/repos/FP_project/lowz12_fp//data_out/field_ia/fieldfull_wt02_Rwt3.inp
+initialisation file not read!! Bye
+Finished:: Mon Jun 17 07:12:39 PDT 2019
+================================================
+==============================================================
+begining:: Mon Jun 17 07:12:39 PDT 2019
+doing coors /home/deep/repos/FP_project/lowz12_fp//data_out/field_ia/fieldfull_wt02_Rwt3_ia.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+RsRd same  0  RR-prob:1
+doing jk1
+data_inf.coordinates:0
+done initialization
+doing weighted calcs
+doing weighted calcs
+111
+doing weighted calcs
+do_corr: here
+Doing cross SRd
+corels2, n1, n2: 3579830 214618
+OMP procs: 16
+corel2 ends::time: 1169.09  total pair= 11467908124	pairs out= 7731459434   pairs in=3736448690    PB=0
+Doing cross RsRd
+corels2, n1, n2: 3579830 2146180
+OMP procs: 16
+corel2 ends::time: 13824.4  total pair= 114299837894	pairs out= 77111413510   pairs in=37188424384    PB=0
+Doing cross SD
+corels2, n1, n2: 357983 214618
+OMP procs: 16
+corel2 ends::time: 86.2631  total pair= 1168193186	pairs out= 790015395   pairs in=378177791    PB=0
+Doing cross DRs
+corels2, n1, n2: 357983 2146180
+OMP procs: 16
+corel2 ends::time: 1197.82  total pair= 11611369658	pairs out= 7883170284   pairs in=3728199374    PB=0
+Bin calculations
+Binning done
+Finished:: Mon Jun 17 11:44:23 PDT 2019
+================================================
