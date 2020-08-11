@@ -1,8 +1,16 @@
-#import camb
-#from camb import model, initialpower
+try:
+    import camb
+    from camb import model, initialpower
+except:
+    camb=None
 
+try:
+    from classy import Class
+except:
+    Class=None   
+    
 #import pyccl
-from classy import Class
+
 import numpy as np
 from scipy.interpolate import interp1d
 from astropy.cosmology import Planck15 as cosmo
@@ -15,7 +23,7 @@ c=c.to(u.km/u.second)
 
 cosmo_fid=dict({'h':cosmo.h,'Omb':cosmo.Ob0,'Omd':cosmo.Om0-cosmo.Ob0,'s8':0.817,'Om':cosmo.Om0,
                 'As':2.12e-09,'mnu':cosmo.m_nu[-1].value,'Omk':cosmo.Ok0,'tau':0.06,'ns':0.965,'w':-1,'wa':0})
-pk_params={'non_linear':1,'kmax':30,'kmin':3.e-4,'nk':5000}
+pk_params={'non_linear':1,'kmax':30,'kmin':3.e-4,'nk':5000,'pk_func':'camb_pk_too_many_z'}
 class_accuracy_settings={ #from Vanessa. To avoid class errors due to compiler issues.
                           #https://github.com/lesgourg/class_public/issues/193
             "k_min_tau0":0.002, #you could try change this
@@ -39,6 +47,12 @@ class Power_Spectra():
             self.cosmo_h=cosmo.clone(H0=100)
         else:
             self.cosmo_h=cosmo_h
+            
+        pk_func=pk_params.get('pk_func')
+        pk_func_default=self.camb_pk_too_many_z
+        if camb is None:
+            pk_func_default=self.class_pk
+        self.pk_func=pk_func_default if pk_func is None else getattr(self,pk_func)
             
         if not pk_params is None:
             self.kh=np.logspace(np.log10(pk_params['kmin']),np.log10(pk_params['kmax']),

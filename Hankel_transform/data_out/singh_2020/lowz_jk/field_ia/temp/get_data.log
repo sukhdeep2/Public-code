@@ -1,0 +1,66 @@
+
+
+===============================================
+begining Fri Jun 14 11:48:34 PDT 2019
+==============off to python==============
+==============python done==============
+
+
+===============================================
+begining Fri Jun 14 11:53:50 PDT 2019
+==============off to python==============
+shape_cuts ('Group_count', '==', '1')
+shape_cuts [('z', '>', '0.15') ('z', '<', '0.43') ('e1', '>', '-10.0')
+ ('jk', '>', '-1') ('Group_count', '==', '1')]
+density_cuts [('z', '>', '0.15') ('z', '<', '0.43') ('jk', '>', '-1')
+ ('z', '>', '0.15') ('z', '<', '0.43') ('jk', '>', '-1')]
+0.9979763031005859
+flag_data_rand err 'e1'
+flag_data_rand err 'Group_count'
+0.9979763031005859
+rand RA-DEC wt col jk_lowz12 3
+2:  [0.01066496 0.01054931 0.01038431 0.01008993] [23. 24. 25. 26.]
+density:  [0.01069213 0.01046782 0.01046307 0.01008037] [23. 24. 25. 26.] 37456
+e_rms:  0.13
+writing to: /home/deep/repos/FP_project/lowz12_fp//data_out/field_ia/fieldfull_wt02_Rwt3
+==============python done==============
+
+
+===============================================
+begining Sun Jun 16 15:12:25 PDT 2019
+==============off to python==============
+shape_cuts ('Group_count', '==', '1')
+shape_cuts [('z', '>', '0.15') ('z', '<', '0.43') ('e1', '>', '-10.0')
+ ('jk', '>', '-1') ('Group_count', '==', '1')]
+density_cuts [('z', '>', '0.15') ('z', '<', '0.43') ('jk', '>', '-1')
+ ('z', '>', '0.15') ('z', '<', '0.43') ('jk', '>', '-1')]
+0.9979763031005859
+flag_data_rand err 'e1'
+flag_data_rand err 'Group_count'
+0.9979763031005859
+rand RA-DEC wt col jk_lowz12 3
+2:  [0.01061956 0.01068026 0.01030366 0.01006737] [23. 24. 25. 26.]
+density:  [0.01060944 0.0105829  0.01027423 0.01013875] [23. 24. 25. 26.] 7356
+e_rms:  0.13
+writing to: /home/deep/repos/FP_project/lowz12_fp//data_out/field_ia/fieldfull_wt02_Rwt3
+==============python done==============
+
+
+===============================================
+begining Mon Jun 17 07:07:25 PDT 2019
+==============off to python==============
+shape_cuts ('Group_count', '==', '1')
+shape_cuts [('z', '>', '0.15') ('z', '<', '0.43') ('e1', '>', '-10.0')
+ ('jk', '>', '-1') ('Group_count', '==', '1')]
+density_cuts [('z', '>', '0.15') ('z', '<', '0.43') ('jk', '>', '-1')
+ ('z', '>', '0.15') ('z', '<', '0.43') ('jk', '>', '-1')]
+0.9979763031005859
+flag_data_rand err 'e1'
+flag_data_rand err 'Group_count'
+0.9979763031005859
+rand RA-DEC wt col jk_lowz12 3
+2:  [0.01066359 0.01055516 0.01039518 0.01009555] [23. 24. 25. 26.]
+density:  [0.0106033  0.01050525 0.01035468 0.01013232] [23. 24. 25. 26.] 37068
+e_rms:  0.13
+writing to: /home/deep/repos/FP_project/lowz12_fp//data_out/field_ia/fieldfull_wt02_Rwt3
+==============python done==============

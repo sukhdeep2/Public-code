@@ -1,0 +1,123 @@
+==============================================================
+begining:: Fri Jun 14 11:51:45 PDT 2019
+doing coors /home/deep/repos/FP_project/lowz12_fp//data_out/sat_ia/satfull_wt02_Rwt3.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+data_ini:: initialisation File not open/home/deep/repos/FP_project/lowz12_fp//data_out/sat_ia/satfull_wt02_Rwt3.inp
+initialisation file not read!! Bye
+Finished:: Fri Jun 14 11:51:45 PDT 2019
+================================================
+==============================================================
+begining:: Fri Jun 14 11:51:45 PDT 2019
+doing coors /home/deep/repos/FP_project/lowz12_fp//data_out/sat_ia/satfull_wt02_Rwt3_ia.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+RsRd same  0  RR-prob:1
+doing jk1
+data_inf.coordinates:0
+done initialization
+doing weighted calcs
+doing weighted calcs
+111
+doing weighted calcs
+do_corr: here
+Doing cross SRd
+corels2, n1, n2: 3579830 30414
+OMP procs: 16
+corel2 ends::time: 254.16  total pair= 1729094754	pairs out= 1170194952   pairs in=558899802    PB=0
+Doing cross RsRd
+corels2, n1, n2: 3579830 304140
+OMP procs: 16
+corel2 ends::time: 3158.37  total pair= 17118777202	pairs out= 11585974777   pairs in=5532802425    PB=0
+Doing cross SD
+corels2, n1, n2: 357983 30414
+OMP procs: 16
+corel2 ends::time: 23.2005  total pair= 176910630	pairs out= 119806478   pairs in=57104152    PB=0
+Doing cross DRs
+corels2, n1, n2: 357983 304140
+OMP procs: 16
+corel2 ends::time: 240.072  total pair= 1741808246	pairs out= 1187200355   pairs in=554607891    PB=0
+Bin calculations
+Binning done
+Finished:: Fri Jun 14 12:53:13 PDT 2019
+================================================
+==============================================================
+begining:: Sun Jun 16 15:24:55 PDT 2019
+doing coors /home/deep/repos/FP_project/lowz12_fp//data_out/sat_ia/satfull_wt02_Rwt3.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+data_ini:: initialisation File not open/home/deep/repos/FP_project/lowz12_fp//data_out/sat_ia/satfull_wt02_Rwt3.inp
+initialisation file not read!! Bye
+Finished:: Sun Jun 16 15:24:56 PDT 2019
+================================================
+==============================================================
+begining:: Sun Jun 16 15:24:56 PDT 2019
+doing coors /home/deep/repos/FP_project/lowz12_fp//data_out/sat_ia/satfull_wt02_Rwt3_ia.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+RsRd same  0  RR-prob:1
+doing jk1
+data_inf.coordinates:0
+done initialization
+doing weighted calcs
+doing weighted calcs
+111
+doing weighted calcs
+do_corr: here
+Doing cross SRd
+corels2, n1, n2: 715966 30414
+OMP procs: 16
+corel2 ends::time: 87.4416  total pair= 346306536	pairs out= 234427762   pairs in=111878774    PB=0
+Doing cross RsRd
+corels2, n1, n2: 715966 60828
+OMP procs: 16
+corel2 ends::time: 165.33  total pair= 684425404	pairs out= 463341056   pairs in=221084348    PB=0
+Doing cross SD
+corels2, n1, n2: 357983 30414
+OMP procs: 16
+corel2 ends::time: 44.0358  total pair= 176910630	pairs out= 119806478   pairs in=57104152    PB=0
+Doing cross DRs
+corels2, n1, n2: 357983 60828
+OMP procs: 16
+corel2 ends::time: 93.8674  total pair= 347822734	pairs out= 237011650   pairs in=110811084    PB=0
+Bin calculations
+Binning done
+Finished:: Sun Jun 16 15:31:58 PDT 2019
+================================================
+==============================================================
+begining:: Sun Jun 16 21:22:33 PDT 2019
+doing coors /home/deep/repos/FP_project/lowz12_fp//data_out/sat_ia/satfull_wt02_Rwt3.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+data_ini:: initialisation File not open/home/deep/repos/FP_project/lowz12_fp//data_out/sat_ia/satfull_wt02_Rwt3.inp
+initialisation file not read!! Bye
+Finished:: Sun Jun 16 21:22:33 PDT 2019
+================================================
+==============================================================
+begining:: Sun Jun 16 21:22:33 PDT 2019
+doing coors /home/deep/repos/FP_project/lowz12_fp//data_out/sat_ia/satfull_wt02_Rwt3_ia.inp
+Beginning IA3. Last compiled on: Apr 19 2019  at: 12:53:41
+RsRd same  0  RR-prob:1
+doing jk1
+data_inf.coordinates:0
+done initialization
+doing weighted calcs
+doing weighted calcs
+111
+doing weighted calcs
+do_corr: here
+Doing cross SRd
+corels2, n1, n2: 3579830 30414
+OMP procs: 16
+corel2 ends::time: 228.894  total pair= 1729603808	pairs out= 1170669958   pairs in=558933850    PB=0
+Doing cross RsRd
+corels2, n1, n2: 3579830 304140
+OMP procs: 16
+corel2 ends::time: 2659.97  total pair= 17124152033	pairs out= 11588657118   pairs in=5535494915    PB=0
+Doing cross SD
+corels2, n1, n2: 357983 30414
+OMP procs: 16
+corel2 ends::time: 22.5881  total pair= 176910630	pairs out= 119806478   pairs in=57104152    PB=0
+Doing cross DRs
+corels2, n1, n2: 357983 304140
+OMP procs: 16
+corel2 ends::time: 300.61  total pair= 1742000975	pairs out= 1186903847   pairs in=555097128    PB=0
+Bin calculations
+Binning done
+Finished:: Sun Jun 16 22:16:46 PDT 2019
+================================================

@@ -1,0 +1,60 @@
+
+
+===============================================
+begining Sun Jun 16 13:21:20 PDT 2019
+==============off to python==============
+==============python done==============
+
+
+===============================================
+begining Sun Jun 16 13:23:49 PDT 2019
+==============off to python==============
+==============python done==============
+
+
+===============================================
+begining Sun Jun 16 13:24:35 PDT 2019
+==============off to python==============
+['/home/deep/repos/FP_project/cmass12_fp//python_script/sdss12_ia3_gg.py', '10.0', '/home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/', 'fullfull_wt22_Rwt3', '/home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/temp/', '/home/deep/repos/FP_project/cmass12_fp/run/full_cuts.txt', '/home/deep/repos/FP_project/cmass12_fp/run/full_cuts.txt', '1', '3', '0', '2', '2', '0', 'a']
+==============python done==============
+
+
+===============================================
+begining Sun Jun 16 13:26:12 PDT 2019
+==============off to python==============
+['/home/deep/repos/FP_project/cmass12_fp//python_script/sdss12_ia3_gg.py', '10.0', '/home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/', 'fullfull_wt22_Rwt3', '/home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/temp/', '/home/deep/repos/FP_project/cmass12_fp/run/full_cuts.txt', '/home/deep/repos/FP_project/cmass12_fp/run/full_cuts.txt', '1', '3', '0', '2', '2', "''", '0', 'a']
+shape_cuts [('z', '>', '0.43') ('z', '<', '0.7') ('jk', '>', '-1')]
+shape_cuts [('z', '>', '0.43') ('z', '<', '0.7') ('e1', '>', '-10.0')
+ ('jk', '>', '-1') ('z', '>', '0.43') ('z', '<', '0.7') ('jk', '>', '-1')]
+density_cuts [('z', '>', '0.43') ('z', '<', '0.7') ('jk', '>', '-1') ('z', '>', '0.43')
+ ('z', '<', '0.7') ('jk', '>', '-1')]
+1.1365858316421509
+flag_data_rand err 'e1'
+1.1365858316421509
+rand RA-DEC wt col jk_cmass12 3
+2:  [0.01115205 0.011376   0.01102706 0.01110132] [23. 24. 25. 26.]
+density:  [0.01117152 0.01134032 0.01109433 0.01108589] [23. 24. 25. 26.] 85376
+e_rms:  0.13
+writing to: /home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/fullfull_wt22_Rwt3
+==============python done==============
+
+
+===============================================
+begining Sun Jun 16 15:15:35 PDT 2019
+==============off to python==============
+['/home/deep/repos/FP_project/cmass12_fp//python_script/sdss12_ia3_gg.py', '2.0', '/home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/', 'fullfull_wt02_Rwt3', '/home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/temp/', '/home/deep/repos/FP_project/cmass12_fp/run/full_cuts.txt', '/home/deep/repos/FP_project/cmass12_fp/run/full_cuts.txt', '1', '3', '0', '0', '2', "''", '0', 'a']
+shape_cuts [('z', '>', '0.43') ('z', '<', '0.7') ('jk', '>', '-1')]
+shape_cuts [('z', '>', '0.43') ('z', '<', '0.7') ('e1', '>', '-10.0')
+ ('jk', '>', '-1') ('z', '>', '0.43') ('z', '<', '0.7') ('jk', '>', '-1')]
+density_cuts [('z', '>', '0.43') ('z', '<', '0.7') ('jk', '>', '-1') ('z', '>', '0.43')
+ ('z', '<', '0.7') ('jk', '>', '-1')]
+1.1365858316421509
+flag_data_rand err 'e1'
+1.1365858316421509
+rand RA-DEC wt col jk_cmass12 3
+2:  [0.01114526 0.01138934 0.01098731 0.01110797] [23. 24. 25. 26.]
+density:  [0.01115723 0.01138528 0.01113774 0.01113384] [23. 24. 25. 26.] 17142
+e_rms:  0.13
+writing to: /home/deep/repos/FP_project/cmass12_fp//data_out/full_ia/fullfull_wt02_Rwt3
+shape response: 0.9035009816288948
+==============python done==============
