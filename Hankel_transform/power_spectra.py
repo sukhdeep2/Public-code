@@ -2,7 +2,7 @@ import camb
 from camb import model, initialpower
 
 #import pyccl
-from classy import Class
+# from classy import Class
 import numpy as np
 from scipy.interpolate import interp1d
 from astropy.cosmology import Planck15 as cosmo
