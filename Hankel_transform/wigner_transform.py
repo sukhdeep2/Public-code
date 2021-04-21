@@ -11,7 +11,12 @@ class wigner_transform():
         self.logger=logger
         self.l=l
         self.grad_l=np.gradient(l)
-        self.norm=(2*l+1.)/(4.*np.pi) 
+        self.norm=(2*l+1.)/(4.*np.pi)
+        self.theta=theta
+        self.grad_theta=np.gradient(theta)
+        self.inv_norm=np.sin(self.theta)*2*np.pi
+        self.inv_wig_norm=self.inv_norm*self.grad_theta
+
         self.wig_d={}
         # self.wig_3j={}
         self.s1_s2s=s1_s2
@@ -32,23 +37,26 @@ class wigner_transform():
             l=self.l
         self.__init__(theta=theta,l=l,s1_s2=self.s1_s2s,logger=self.logger)
 
-    def cl_grid(self,l_cl=[],cl=[],taper=False,**kwargs):
+    def cl_grid(self,l_cl=[],cl=[],wig_l=None,taper=False,**kwargs):
         """
         Interpolate a given C_ell onto the grid of ells for which WT is intialized. 
         This is to generalize in case user doesnot want to compute C_ell at every ell.
         Also apply tapering if needed.
         """
         if taper:
-            sself.taper_f=self.taper(l=l,**kwargs)
+            self.taper_f=self.taper(l=l_cl,**kwargs)
+            taper_f=self.taper_f['taper_f']
             cl=cl*taper_f
-        # if l==[]:#In this case pass a function that takes k with kwargs and outputs cl
-        #     cl2=cl(l=self.l,**kwargs)
-        # else:
+            print('taper:',taper_f)
+        if np.all(wig_l==l_cl):
+            return cl
         cl_int=interp1d(l_cl,cl,bounds_error=False,fill_value=0,
                         kind='linear')
-        cl2=cl_int(self.l)
+        if wig_l is None:
+            wig_l=self.l
+        cl2=cl_int(wig_l)
         return cl2
-
+    
     def cl_cov_grid(self,l_cl=[],cl_cov=[],taper=False,**kwargs):
         """
         Interpolate a given C_ell covariance onto the grid of ells for which WT is intialized. 
@@ -80,6 +88,19 @@ class wigner_transform():
         else:
             w=np.dot(wig_d,cl)
         return self.theta[s1_s2]*1.,w
+    
+    def inv_projected_correlation(self,theta_xi=[],xi=[],s1_s2=[],taper=False,**kwargs):
+        """
+        Get the projected power spectra (c_ell) from given xi.
+        """
+#         if wig_d is None: #when using default wigner matrices, interpolate to ensure grids match.
+        wig_d=self.wig_d[s1_s2].T
+        wig_theta=self.theta[s1_s2]
+        wig_norm=self.inv_wig_norm
+
+        xi2=self.cl_grid(l_cl=theta_xi,cl=xi,taper=taper,wig_l=wig_theta,**kwargs)
+        cl=np.dot(wig_d*wig_norm,xi2)
+        return self.l,cl
 
     def projected_covariance(self,l_cl=[],cl_cov=[],s1_s2=[],s1_s2_cross=None,
                             taper=False,**kwargs):
