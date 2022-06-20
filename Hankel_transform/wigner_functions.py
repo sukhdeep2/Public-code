@@ -18,6 +18,18 @@ from mpmath import exp as mp_exp
 from mpmath import log as mp_log
 from sympy.physics.wigner import wigner_3j
 
+def log_factorial(n):
+    return loggamma(n+1)
+
+def associated_legendre(l,m,mu):
+    theta=np.arccos(mu)
+#     print(theta.shape)
+    dlm0=wigner_d(m,0,theta,l,l_use_bessel=None)
+    dlm0=np.squeeze(dlm0,-1)
+    log_norm=log_factorial(l+m)-log_factorial(l-m)
+    log_norm*=0.5
+#     Plm=np.exp(log_norm)*dlm0
+    return np.exp(log_norm)*dlm0
 
 def wigner_d(m1,m2,theta,l,l_use_bessel=1.e4):
     """
@@ -47,9 +59,11 @@ def wigner_d(m1,m2,theta,l,l_use_bessel=1.e4):
     d_mat=np.atleast_1d(d_mat)
     x=k<0
     d_mat[x]=0
-
-    d_mat=d_mat.reshape(1,len(d_mat))
-    theta=theta.reshape(len(theta),1)
+    
+    d_mat=np.expand_dims(d_mat,0)#d_mat.reshape(1,len(d_mat))
+    theta=np.expand_dims(theta,-1)#theta.reshape(len(theta),1)
+#     d_mat=d_mat.reshape(1,len(d_mat))
+#     theta=theta.reshape(len(theta),1)
     d_mat=d_mat*((np.sin(theta/2.0)**a)*(np.cos(theta/2.0)**b))
     x=d_mat==0
     d_mat*=jacobi(k,a,b,np.cos(theta)) #l
